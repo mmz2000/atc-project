@@ -130,9 +130,11 @@ class Program:
         while line < len(self.program_lines):
             print(
                 line + 1,
-                " ".join([str(i) for i in self.inputs]),
-                " ".join([str(i) for i in self.arb_vars]),
-                out,
+                " ".join(
+                    [str(i) for i in self.inputs]
+                    + [str(i) for i in self.arb_vars]
+                    + [str(out)]
+                ),
             )
             program_line = self.program_lines[line]
             if isinstance(program_line, ProgramLineAdd):
