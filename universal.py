@@ -147,11 +147,15 @@ class Program:
                 line += 1
             elif isinstance(program_line, ProgramLineSub):
                 if program_line.symbol == 0:
-                    out -= 1
+                    out = max(out - 1, 0)
                 elif program_line.symbol % 2 == 0:
-                    self.arb_vars[(program_line.symbol // 2) - 1] -= 1
+                    self.arb_vars[(program_line.symbol // 2) - 1] = max(
+                        self.arb_vars[(program_line.symbol // 2) - 1] - 1, 0
+                    )
                 else:
-                    self.inputs[program_line.symbol // 2] -= 1
+                    self.inputs[program_line.symbol // 2] = max(
+                        self.inputs[program_line.symbol // 2] - 1, 0
+                    )
                 line += 1
             elif isinstance(program_line, ProgramLineArb):
                 line += 1
@@ -170,4 +174,4 @@ class Program:
 
 if __name__ == "__main__":
     program = Program(*list(map(int, input().split())))
-    program.run(*list(map(int, input().split())))
+    program.run(*list(map(lambda x: max(int(x), 0), input().split())))
